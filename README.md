@@ -15,10 +15,26 @@ Add the following lines to your composer.json:
 
 Then in your app/config/app.php add:
 
+```php
 'Ingruz\Rest\RestServiceProvider',
+```
 
 under the services providers and
 
+```php
 'Restify'	=> 'Ingruz\Rest\RestFacade',
+```
 
 under the aliases.
+
+## Usage
+
+Your models should now extend from Ingruz\Models\RestModel instead of Eloquent.
+
+Then you can create a set of route in this way:
+
+```php
+Restify::resource('post');
+```
+
+where 'post' is the lower-cased name of your model's class.
