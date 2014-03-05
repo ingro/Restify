@@ -38,3 +38,11 @@ Restify::resource('post');
 ```
 
 where 'post' is the lower-cased name of your model's class.
+
+Now the following routes have been created:
+
+GET 'post'
+GET 'post/{id}'
+POST 'post'
+PUT 'post/{id}'
+DELETE 'post/{id}'
