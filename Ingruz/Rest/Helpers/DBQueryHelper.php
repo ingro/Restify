@@ -23,14 +23,12 @@ class DBQueryHelper {
 	{
 		$this->item = $istance;
 
-		$this->page = Request::get('currentPage');
-		// $skip = Request::get('skip');
-		$top = Request::get('top');
+		if (Request::get('currentPage'))
+		{
+			$this->page = (int) Request::get('currentPage');
+		}
 
-		// if ( ! empty($skip) and ! empty($top) )
-		// {
-		// 	$this->page = Request::get('skip') / Request::get('top') + 1;
-		// }
+		$top = Request::get('top');
 
 		if ( ! empty($top) )
 		{
@@ -51,7 +49,7 @@ class DBQueryHelper {
 
 		$idsList = $this->getItemsId();
 
-		return $this->getItemsModels($idsList);
+		return $this->getItemsModels($idsList, $total);
 	}
 
 	protected function buildQuery()
@@ -99,13 +97,13 @@ class DBQueryHelper {
 		return $this->query->forPage($this->page, $this->perPage)->lists($this->item->getKeyName());
 	}
 
-	private function getItemsModels($ids)
+	private function getItemsModels($ids, $total)
 	{
 		$data = array(
-			'total' => 50,
+			'total' => $total,
 			'values' => array(),
-			'page' => 1,
-			'query' => array()
+			'page' => $this->page
+			// 'query' => array()
 		);
 
 		$staticItem = get_class($this->item);
